@@ -95,6 +95,9 @@
     overflow: hidden;
   }
 
+  .hero-mockup-col { display: block; }
+  @media (max-width: 900px) { .hero-mockup-col { display: none; } }
+
   .hero::before {
     content: '';
     position: absolute;
@@ -587,14 +590,29 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-content">
+<section class="hero" style="flex-direction:row;gap:3rem;">
+  <div class="hero-content" style="flex:1;min-width:0;">
     <div class="hero-tag">Inteligência Clínica — UTI</div>
     <h1>Sepse identificada<br>antes que seja<br><span>tarde demais.</span></h1>
     <p>O NoSepsis monitora pacientes críticos em tempo real, prioriza riscos e alerta equipes clínicas com antecedência suficiente para salvar vidas.</p>
     <div class="hero-actions">
       <a href="#contato" class="btn-primary">Solicitar piloto</a>
       <a href="#nosepsis" class="btn-secondary">Ver como funciona</a>
+    </div>
+  </div>
+  <div class="hero-mockup-col" style="flex:1;min-width:0;">
+    <div class="mockup">
+      <div class="mockup-bar">
+        <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
+        <span style="font-size:0.7rem;color:var(--text-muted);margin-left:0.5rem;">NoSepsis · Dashboard</span>
+      </div>
+      <div class="mockup-content">
+        <div class="mock-title">Fila de Risco — UTI · Tempo real</div>
+        <div class="mock-patient alto"><div><div class="mock-patient-name">Paciente 04 — J.M.S.</div><div class="mock-patient-leito">Leito 04 · Score 0.91 · 6h</div></div><span class="mock-badge badge-alto">ALTO RISCO</span></div>
+        <div class="mock-patient alto"><div><div class="mock-patient-name">Paciente 11 — M.A.R.</div><div class="mock-patient-leito">Leito 11 · Score 0.84 · 2h</div></div><span class="mock-badge badge-alto">ALTO RISCO</span></div>
+        <div class="mock-patient medio"><div><div class="mock-patient-name">Paciente 07 — C.F.L.</div><div class="mock-patient-leito">Leito 07 · Score 0.63 · 14h</div></div><span class="mock-badge badge-medio">RISCO MÉDIO</span></div>
+        <div class="mock-patient baixo"><div><div class="mock-patient-name">Paciente 02 — R.T.M.</div><div class="mock-patient-leito">Leito 02 · Score 0.21 · 48h</div></div><span class="mock-badge badge-baixo">CONTROLE</span></div>
+      </div>
     </div>
   </div>
 </section>
@@ -618,6 +636,36 @@
     <div class="label">custo médio por internação grave</div>
   </div>
 </div>
+
+
+<!-- QUEM SOMOS -->
+<section id="quem-somos" style="background: var(--navy);">
+  <div class="section-tag">Quem somos</div>
+  <div class="section-title">Tecnologia nascida<br>dentro do <span>hospital</span></div>
+  <div class="section-desc">A Argo Systems foi fundada por um profissional de saúde com mais de 15 anos de experiência clínica e gestão hospitalar — não por engenheiros distantes da realidade da UTI.</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;margin-top:2.5rem;">
+    <div class="problem-card">
+      <div class="problem-icon">🏥</div>
+      <h3>Origem clínica</h3>
+      <p>O NoSepsis foi desenvolvido a partir de observação direta de falhas assistenciais em UTIs brasileiras — não de hipóteses acadêmicas.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">🎓</div>
+      <h3>Base científica</h3>
+      <p>Modelos validados com dados reais de pacientes críticos. Publicações em saúde pública e metodologia de auditoria hospitalar aplicada.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">⚖️</div>
+      <h3>Conformidade e segurança</h3>
+      <p>Plataforma desenvolvida com conformidade à LGPD, CFM e padrões de segurança da informação em saúde. Contrato com cláusulas claras de resultado.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">📍</div>
+      <h3>Presença regional</h3>
+      <p>Sediados em Governador Valadares, MG. Atendimento presencial em hospitais do interior — sem suporte remoto genérico.</p>
+    </div>
+  </div>
+</section>
 
 <!-- PROBLEMA -->
 <section class="problem" id="problema">
@@ -869,6 +917,7 @@
   <div class="logo">ARGO <span>SYSTEMS</span></div>
   <p>CNPJ 22.896.339/0001-50 · Governador Valadares, MG</p>
   <div style="display:flex;gap:1.5rem;">
+    <a href="mailto:diogojustino@argosystems.com.br">diogojustino@argosystems.com.br</a>
     <a href="mailto:contato@argosystems.com.br">contato@argosystems.com.br</a>
   </div>
 </footer>
@@ -895,7 +944,16 @@ function enviarFormulario() {
     `Mensagem: ${document.getElementById('mensagem').value || 'Sem mensagem'}`
   );
 
-  window.open(`https://wa.me/5533999999999?text=${msg}`, '_blank');
+  window.open(`https://wa.me/5533991000048?text=${msg}`, '_blank');
+
+  const emailBody = encodeURIComponent(
+    `Novo contato via site Argo Systems\n\n` +
+    `Nome: ${nome}\nHospital: ${hospital}\nCargo: ${document.getElementById('cargo').value}\nWhatsApp: ${whatsapp}\nMensagem: ${document.getElementById('mensagem').value || 'Sem mensagem'}`
+  );
+  setTimeout(() => {
+    window.location.href = `mailto:diogojustino@argosystems.com.br?subject=Contato via site - ${hospital}&body=${emailBody}`;
+  }, 800);
+
   document.getElementById('success').style.display = 'block';
 }
 </script>
