@@ -132,9 +132,20 @@ footer a:hover{color:var(--purple-light);}
   nav ul{display:none;}
   .form-grid{grid-template-columns:1fr;}
 }
+
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:0.1s;}
+.reveal-delay-2{transition-delay:0.2s;}
+.reveal-delay-3{transition-delay:0.3s;}
+.reveal-delay-4{transition-delay:0.4s;}
+#particles-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+.typewriter{border-right:3px solid var(--purple);animation:blink 0.8s infinite;}
+@keyframes blink{0%,100%{border-color:var(--purple);}50%{border-color:transparent;}}
 </style>
 </head>
 <body>
+<canvas id="particles-canvas"></canvas>
 <div class="orb orb-1"></div>
 <div class="orb orb-2"></div>
 <div class="orb orb-3"></div>
@@ -152,10 +163,10 @@ footer a:hover{color:var(--purple-light);}
 <section class="hero">
   <div class="hero-inner">
     <div>
-      <div class="hero-badge"><div class="hero-dot"></div>Inteligência Clínica — UTI</div>
-      <h1>Sepse identificada<br>antes que seja<br><span class="grad">tarde demais.</span></h1>
-      <p class="hero-p">O NoSepsis monitora pacientes críticos em tempo real, prioriza riscos e alerta equipes clínicas com antecedência suficiente para salvar vidas.</p>
-      <div class="hero-btns">
+      <div class="hero-badge reveal"><div class="hero-dot"></div>Inteligência Clínica — UTI</div>
+      <h1 id="hero-title">Sepse identificada<br>antes que seja<br><span class="grad">tarde demais.</span></h1>
+      <p class="hero-p reveal reveal-delay-2">O NoSepsis monitora pacientes críticos em tempo real, prioriza riscos e alerta equipes clínicas com antecedência suficiente para salvar vidas.</p>
+      <div class="hero-btns reveal reveal-delay-3">
         <a href="#contato" class="btn-main">Solicitar piloto →</a>
         <a href="#nosepsis" class="btn-sec">Ver como funciona</a>
       </div>
@@ -180,14 +191,14 @@ footer a:hover{color:var(--purple-light);}
 </section>
 
 <div class="numbers">
-  <div class="num-card"><div class="num-val">30%</div><div class="num-label">mortalidade da sepse grave</div></div>
-  <div class="num-card"><div class="num-val">6h</div><div class="num-label">janela crítica de intervenção</div></div>
-  <div class="num-card"><div class="num-val">72%</div><div class="num-label">sinais precoces ignorados</div></div>
-  <div class="num-card"><div class="num-val">R$18k</div><div class="num-label">custo médio por internação grave</div></div>
+  <div class="num-card reveal"><div class="num-val">30%</div><div class="num-label">mortalidade da sepse grave</div></div>
+  <div class="num-card reveal reveal-delay-1"><div class="num-val">6h</div><div class="num-label">janela crítica de intervenção</div></div>
+  <div class="num-card reveal reveal-delay-2"><div class="num-val">72%</div><div class="num-label">sinais precoces ignorados</div></div>
+  <div class="num-card reveal reveal-delay-3"><div class="num-val">R$18k</div><div class="num-label">custo médio por internação grave</div></div>
 </div>
 
 <section class="alt-bg" id="quem-somos">
-  <div class="tag">Quem somos</div>
+  <div class="tag reveal">Quem somos</div>
   <h2>Tecnologia nascida<br>dentro do <span>hospital</span></h2>
   <p class="section-p">A Argo Systems foi fundada por um profissional de saúde com mais de 15 anos de experiência clínica e gestão hospitalar — não por engenheiros distantes da realidade da UTI.</p>
   <div class="cards-grid">
@@ -201,7 +212,7 @@ footer a:hover{color:var(--purple-light);}
 <section id="nosepsis">
   <div class="nosep-grid">
     <div>
-      <div class="tag">A solução</div>
+      <div class="tag reveal">A solução</div>
       <h2>NoSepsis —<br><span>alerta inteligente</span><br>para UTI</h2>
       <p class="section-p" style="margin-bottom:0;">Plataforma SaaS que usa modelos preditivos para identificar pacientes em risco de sepse com horas de antecedência.</p>
       <ul class="feature-list">
@@ -226,7 +237,7 @@ footer a:hover{color:var(--purple-light);}
 </section>
 
 <section id="plataforma" class="alt-bg">
-  <div class="tag">Plataforma AURIA</div>
+  <div class="tag reveal">Plataforma AURIA</div>
   <h2>Um ecossistema completo<br>de <span>inteligência clínica</span></h2>
   <p class="section-p">O NoSepsis é o primeiro módulo da AURIA — plataforma modular de monitoramento preditivo para hospitais.</p>
   <div class="cards-grid">
@@ -241,7 +252,7 @@ footer a:hover{color:var(--purple-light);}
 </section>
 
 <section id="como-funciona">
-  <div class="tag">Processo</div>
+  <div class="tag reveal">Processo</div>
   <h2>Da contratação ao <span>resultado</span></h2>
   <div class="steps-grid">
     <div class="step"><div class="step-num">01</div><h3>Reunião de diagnóstico</h3><p>Mapeamos o fluxo da UTI, volume de pacientes e estrutura de dados disponível. Sem compromisso.</p></div>
@@ -282,6 +293,76 @@ footer a:hover{color:var(--purple-light);}
 </footer>
 
 <script>
+// PARTICLES
+const canvas = document.getElementById('particles-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+resizeCanvas();
+window.addEventListener('resize',resizeCanvas);
+function createParticle(){
+  return {
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    size:Math.random()*1.5+0.3,
+    speedX:(Math.random()-0.5)*0.3,
+    speedY:(Math.random()-0.5)*0.3,
+    opacity:Math.random()*0.5+0.1,
+    color:Math.random()>0.6?'123,92,250':Math.random()>0.5?'56,189,248':'255,255,255'
+  };
+}
+for(let i=0;i<120;i++)particles.push(createParticle());
+function animateParticles(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{
+    p.x+=p.speedX;p.y+=p.speedY;
+    if(p.x<0)p.x=canvas.width;
+    if(p.x>canvas.width)p.x=0;
+    if(p.y<0)p.y=canvas.height;
+    if(p.y>canvas.height)p.y=0;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    ctx.fillStyle='rgba('+p.color+','+p.opacity+')';
+    ctx.fill();
+  });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// TYPEWRITER
+const titles = ['tarde demais.','tempo hábil.'];
+let titleIdx=0,charIdx=0,deleting=false;
+const heroTitle=document.getElementById('hero-title');
+const lines=['Sepse identificada','antes que seja',''];
+function typeWriter(){
+  const current=titles[titleIdx];
+  if(!deleting){
+    charIdx++;
+    heroTitle.innerHTML=lines[0]+'<br>'+lines[1]+'<br><span class="grad typewriter">'+current.substring(0,charIdx)+'</span>';
+    if(charIdx===current.length){
+      deleting=true;
+      setTimeout(typeWriter,2000);
+      return;
+    }
+  } else {
+    charIdx--;
+    heroTitle.innerHTML=lines[0]+'<br>'+lines[1]+'<br><span class="grad typewriter">'+current.substring(0,charIdx)+'</span>';
+    if(charIdx===0){
+      deleting=false;
+      titleIdx=(titleIdx+1)%titles.length;
+    }
+  }
+  setTimeout(typeWriter,deleting?60:90);
+}
+setTimeout(typeWriter,1000);
+
+// SCROLL REVEAL
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');}});
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// CONTACT FORM
 function enviar(){
   const nome=document.getElementById('nome').value.trim();
   const hospital=document.getElementById('hospital').value.trim();
