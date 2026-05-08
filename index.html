@@ -4,960 +4,295 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Argo Systems — Inteligência Clínica para Hospitais</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --navy: #0A192F;
-    --navy-mid: #112240;
-    --cyan: #00D4FF;
-    --teal: #1D9E75;
-    --teal-light: #64FFDA;
-    --text: #CCD6F6;
-    --text-muted: #8892B0;
-    --white: #E6F1FF;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--navy);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 5%;
-    background: rgba(10, 25, 47, 0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(0, 212, 255, 0.08);
-  }
-
-  .logo {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 900;
-    font-size: 1.4rem;
-    color: var(--white);
-    letter-spacing: -0.5px;
-  }
-
-  .logo span { color: var(--cyan); }
-
-  nav ul {
-    list-style: none;
-    display: flex;
-    gap: 2rem;
-  }
-
-  nav a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.875rem;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    transition: color 0.2s;
-  }
-
-  nav a:hover { color: var(--cyan); }
-
-  .nav-cta {
-    background: transparent;
-    border: 1px solid var(--cyan);
-    color: var(--cyan) !important;
-    padding: 0.5rem 1.25rem;
-    border-radius: 4px;
-    transition: background 0.2s, color 0.2s !important;
-  }
-
-  .nav-cta:hover {
-    background: rgba(0, 212, 255, 0.1) !important;
-    color: var(--cyan) !important;
-  }
-
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding: 8rem 5% 5rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-mockup-col { display: block; }
-  @media (max-width: 900px) { .hero-mockup-col { display: none; } }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -20%;
-    right: -10%;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(29, 158, 117, 0.12) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: -5%;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(0, 212, 255, 0.07) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .hero-content { max-width: 680px; position: relative; z-index: 1; }
-
-  .hero-tag {
-    display: inline-block;
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--teal-light);
-    margin-bottom: 1.5rem;
-    padding: 0.35rem 1rem;
-    border: 1px solid rgba(100, 255, 218, 0.2);
-    border-radius: 100px;
-  }
-
-  .hero h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 900;
-    font-size: clamp(2.2rem, 5vw, 3.8rem);
-    line-height: 1.1;
-    color: var(--white);
-    margin-bottom: 1.5rem;
-    letter-spacing: -1px;
-  }
-
-  .hero h1 span { color: var(--cyan); }
-
-  .hero p {
-    font-size: 1.15rem;
-    color: var(--text-muted);
-    max-width: 540px;
-    margin-bottom: 2.5rem;
-    line-height: 1.8;
-  }
-
-  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-
-  .btn-primary {
-    display: inline-block;
-    background: var(--teal);
-    color: #fff;
-    padding: 0.9rem 2rem;
-    border-radius: 4px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    text-decoration: none;
-    letter-spacing: 0.3px;
-    transition: background 0.2s, transform 0.15s;
-  }
-
-  .btn-primary:hover { background: #15805f; transform: translateY(-2px); }
-
-  .btn-secondary {
-    display: inline-block;
-    color: var(--cyan);
-    border: 1px solid var(--cyan);
-    padding: 0.9rem 2rem;
-    border-radius: 4px;
-    font-weight: 500;
-    font-size: 0.95rem;
-    text-decoration: none;
-    transition: background 0.2s, transform 0.15s;
-  }
-
-  .btn-secondary:hover { background: rgba(0, 212, 255, 0.08); transform: translateY(-2px); }
-
-  /* NUMBERS */
-  .numbers {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1px;
-    background: rgba(255,255,255,0.04);
-    border-top: 1px solid rgba(255,255,255,0.06);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-
-  .number-card {
-    background: var(--navy);
-    padding: 2.5rem 2rem;
-    text-align: center;
-    transition: background 0.2s;
-  }
-
-  .number-card:hover { background: var(--navy-mid); }
-
-  .number-card .num {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 900;
-    font-size: 2.6rem;
-    color: var(--cyan);
-    line-height: 1;
-    margin-bottom: 0.5rem;
-  }
-
-  .number-card .label {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  /* SECTION */
-  section { padding: 6rem 5%; }
-
-  .section-tag {
-    font-size: 0.8rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--teal-light);
-    margin-bottom: 0.75rem;
-    font-weight: 500;
-  }
-
-  .section-title {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 900;
-    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-    color: var(--white);
-    line-height: 1.2;
-    margin-bottom: 1.25rem;
-    letter-spacing: -0.5px;
-  }
-
-  .section-title span { color: var(--cyan); }
-
-  .section-desc {
-    color: var(--text-muted);
-    max-width: 560px;
-    font-size: 1.05rem;
-    line-height: 1.8;
-    margin-bottom: 3rem;
-  }
-
-  /* PROBLEMA */
-  .problem { background: var(--navy-mid); }
-
-  .problem-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
-    margin-top: 3rem;
-  }
-
-  .problem-card {
-    background: var(--navy);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 8px;
-    padding: 2rem;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-
-  .problem-card:hover {
-    border-color: rgba(0, 212, 255, 0.25);
-    transform: translateY(-4px);
-  }
-
-  .problem-icon {
-    width: 48px;
-    height: 48px;
-    background: rgba(0, 212, 255, 0.08);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.25rem;
-    font-size: 1.4rem;
-  }
-
-  .problem-card h3 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    color: var(--white);
-    margin-bottom: 0.75rem;
-  }
-
-  .problem-card p {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    line-height: 1.7;
-  }
-
-  /* NOSEPSIS */
-  .nosepsis-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-  }
-
-  @media (max-width: 768px) {
-    .nosepsis-grid { grid-template-columns: 1fr; gap: 2rem; }
-    nav ul { display: none; }
-  }
-
-  .feature-list { list-style: none; margin-top: 2rem; }
-
-  .feature-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1rem 0;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-  }
-
-  .feature-list li:last-child { border-bottom: none; }
-
-  .feature-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--teal-light);
-    border-radius: 50%;
-    margin-top: 0.55rem;
-    flex-shrink: 0;
-  }
-
-  .feature-list strong {
-    display: block;
-    color: var(--white);
-    font-weight: 600;
-    font-size: 0.95rem;
-    margin-bottom: 0.25rem;
-  }
-
-  .feature-list span {
-    color: var(--text-muted);
-    font-size: 0.875rem;
-    line-height: 1.6;
-  }
-
-  /* DASHBOARD MOCKUP */
-  .mockup {
-    background: var(--navy-mid);
-    border: 1px solid rgba(0, 212, 255, 0.15);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,212,255,0.05);
-  }
-
-  .mockup-bar {
-    background: rgba(0,0,0,0.3);
-    padding: 0.75rem 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-
-  .dot { width: 10px; height: 10px; border-radius: 50%; }
-  .dot-red { background: #FF5F57; }
-  .dot-yellow { background: #FEBC2E; }
-  .dot-green { background: #28C840; }
-
-  .mockup-content { padding: 1.25rem; }
-
-  .mock-title {
-    font-size: 0.7rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 1rem;
-    font-weight: 500;
-  }
-
-  .mock-patient {
-    background: rgba(0,0,0,0.2);
-    border-radius: 6px;
-    padding: 0.75rem 1rem;
-    margin-bottom: 0.6rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-left: 3px solid transparent;
-    transition: border-color 0.2s;
-  }
-
-  .mock-patient.alto { border-left-color: #FF4D4D; }
-  .mock-patient.medio { border-left-color: #FFA500; }
-  .mock-patient.baixo { border-left-color: var(--teal); }
-
-  .mock-patient-name {
-    font-size: 0.8rem;
-    color: var(--white);
-    font-weight: 500;
-  }
-
-  .mock-patient-leito {
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    margin-top: 0.15rem;
-  }
-
-  .mock-badge {
-    font-size: 0.65rem;
-    font-weight: 700;
-    padding: 0.2rem 0.5rem;
-    border-radius: 100px;
-    letter-spacing: 0.5px;
-  }
-
-  .badge-alto { background: rgba(255,77,77,0.15); color: #FF8080; }
-  .badge-medio { background: rgba(255,165,0,0.15); color: #FFC04D; }
-  .badge-baixo { background: rgba(29,158,117,0.15); color: var(--teal-light); }
-
-  /* COMO FUNCIONA */
-  .steps { background: var(--navy-mid); }
-
-  .steps-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
-    position: relative;
-  }
-
-  .step-card {
-    padding: 2rem;
-    position: relative;
-  }
-
-  .step-num {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 900;
-    font-size: 3.5rem;
-    color: rgba(0, 212, 255, 0.1);
-    line-height: 1;
-    margin-bottom: 0.5rem;
-    display: block;
-  }
-
-  .step-card h3 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    color: var(--white);
-    margin-bottom: 0.75rem;
-  }
-
-  .step-card p {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    line-height: 1.7;
-  }
-
-  /* CONTATO */
-  .contact { text-align: center; }
-
-  .contact-box {
-    max-width: 600px;
-    margin: 0 auto;
-    background: var(--navy-mid);
-    border: 1px solid rgba(0, 212, 255, 0.12);
-    border-radius: 12px;
-    padding: 3rem;
-  }
-
-  .contact-box p {
-    color: var(--text-muted);
-    margin-bottom: 2rem;
-    font-size: 1.05rem;
-  }
-
-  .form-group { margin-bottom: 1rem; text-align: left; }
-
-  .form-group label {
-    display: block;
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    color: var(--text-muted);
-    margin-bottom: 0.4rem;
-    text-transform: uppercase;
-  }
-
-  .form-group input,
-  .form-group textarea,
-  .form-group select {
-    width: 100%;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 6px;
-    padding: 0.75rem 1rem;
-    color: var(--white);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
-    transition: border-color 0.2s;
-    outline: none;
-  }
-
-  .form-group input:focus,
-  .form-group textarea:focus,
-  .form-group select:focus {
-    border-color: var(--cyan);
-    background: rgba(0, 212, 255, 0.04);
-  }
-
-  .form-group select option { background: var(--navy-mid); }
-  .form-group textarea { resize: vertical; min-height: 100px; }
-
-  .form-submit {
-    width: 100%;
-    background: var(--teal);
-    color: #fff;
-    border: none;
-    padding: 1rem;
-    border-radius: 6px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 0.5rem;
-    font-family: 'Inter', sans-serif;
-    letter-spacing: 0.3px;
-    transition: background 0.2s;
-  }
-
-  .form-submit:hover { background: #15805f; }
-
-  .success-msg {
-    display: none;
-    background: rgba(29, 158, 117, 0.1);
-    border: 1px solid rgba(100, 255, 218, 0.2);
-    border-radius: 8px;
-    padding: 1.5rem;
-    color: var(--teal-light);
-    font-size: 0.95rem;
-    margin-top: 1rem;
-    text-align: center;
-  }
-
-  /* FOOTER */
-  footer {
-    border-top: 1px solid rgba(255,255,255,0.06);
-    padding: 2.5rem 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  footer .logo { font-size: 1.1rem; }
-
-  footer p {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-  }
-
-  footer a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.8rem;
-    transition: color 0.2s;
-  }
-
-  footer a:hover { color: var(--cyan); }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --black:#06060F;
+  --dark:#0B0B18;
+  --card:#10101E;
+  --border:rgba(255,255,255,0.07);
+  --purple:#7B5CFA;
+  --purple-light:#A78BFA;
+  --blue:#38BDF8;
+  --cyan:#00D4FF;
+  --teal:#34D399;
+  --text:#E8E8F0;
+  --muted:rgba(232,232,240,0.45);
+  --subtle:rgba(232,232,240,0.2);
+}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.7;overflow-x:hidden;}
+.orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;}
+.orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(123,92,250,0.18) 0%,transparent 70%);top:-100px;right:-100px;}
+.orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(56,189,248,0.12) 0%,transparent 70%);bottom:20%;left:-100px;}
+.orb-3{width:300px;height:300px;background:radial-gradient(circle,rgba(52,211,153,0.08) 0%,transparent 70%);top:50%;right:10%;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 5%;backdrop-filter:blur(20px);border-bottom:1px solid var(--border);background:rgba(6,6,15,0.7);}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:var(--text);letter-spacing:-0.5px;}
+.logo span{color:var(--purple);}
+nav ul{list-style:none;display:flex;gap:2rem;}
+nav a{color:var(--muted);text-decoration:none;font-size:0.85rem;transition:color 0.2s;}
+nav a:hover{color:var(--text);}
+.nav-cta{background:var(--purple);color:#fff !important;padding:0.5rem 1.25rem;border-radius:8px;font-weight:500 !important;}
+.hero{min-height:100vh;display:flex;align-items:center;padding:8rem 5% 5rem;position:relative;z-index:1;}
+.hero-inner{display:grid;grid-template-columns:1.1fr 0.9fr;gap:4rem;align-items:center;width:100%;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(123,92,250,0.1);border:1px solid rgba(123,92,250,0.3);color:var(--purple-light);font-size:0.72rem;font-weight:500;letter-spacing:2px;text-transform:uppercase;padding:0.35rem 0.9rem;border-radius:100px;margin-bottom:1.75rem;}
+.hero-dot{width:6px;height:6px;background:var(--purple);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.8rem,5.5vw,4.5rem);line-height:1.0;letter-spacing:-2px;color:#fff;margin-bottom:1.5rem;}
+h1 .grad{background:linear-gradient(135deg,var(--purple) 0%,var(--blue) 50%,var(--cyan) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-p{font-size:1.05rem;color:var(--muted);line-height:1.8;max-width:500px;margin-bottom:2.25rem;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn-main{display:inline-block;background:var(--purple);color:#fff;padding:0.85rem 1.75rem;border-radius:10px;font-weight:500;font-size:0.95rem;text-decoration:none;transition:opacity 0.2s,transform 0.15s;}
+.btn-main:hover{opacity:0.9;transform:translateY(-2px);}
+.btn-sec{display:inline-block;color:var(--text);border:1px solid var(--border);padding:0.85rem 1.75rem;border-radius:10px;font-size:0.95rem;text-decoration:none;transition:border-color 0.2s,transform 0.15s;}
+.btn-sec:hover{border-color:rgba(255,255,255,0.2);transform:translateY(-2px);}
+.hero-visual{position:relative;}
+.dashboard-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 0 0 1px rgba(123,92,250,0.08),0 40px 80px rgba(0,0,0,0.5);}
+.dash-bar{background:rgba(0,0,0,0.4);padding:0.75rem 1rem;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--border);}
+.dash-dot{width:10px;height:10px;border-radius:50%;}
+.dash-dot-r{background:#FF5F57;}.dash-dot-y{background:#FEBC2E;}.dash-dot-g{background:#28C840;}
+.dash-title{font-size:0.7rem;color:var(--subtle);margin-left:0.5rem;letter-spacing:1px;text-transform:uppercase;}
+.dash-content{padding:1.25rem;}
+.dash-label{font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--subtle);margin-bottom:1rem;}
+.patient-row{background:rgba(255,255,255,0.03);border-radius:8px;padding:0.75rem 1rem;margin-bottom:0.5rem;display:flex;justify-content:space-between;align-items:center;border-left:3px solid transparent;}
+.patient-row.alto{border-left-color:#EF4444;}
+.patient-row.medio{border-left-color:#F59E0B;}
+.patient-row.baixo{border-left-color:var(--teal);}
+.p-name{font-size:0.8rem;color:var(--text);font-weight:500;}
+.p-info{font-size:0.68rem;color:var(--muted);margin-top:2px;}
+.p-badge{font-size:0.62rem;font-weight:600;padding:0.2rem 0.55rem;border-radius:100px;}
+.b-alto{background:rgba(239,68,68,0.12);color:#FCA5A5;}
+.b-medio{background:rgba(245,158,11,0.12);color:#FCD34D;}
+.b-baixo{background:rgba(52,211,153,0.12);color:#6EE7B7;}
+.float-card{position:absolute;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:0.9rem 1.1rem;box-shadow:0 20px 40px rgba(0,0,0,0.4);}
+.float-1{bottom:-20px;left:-30px;animation:float1 4s ease-in-out infinite;}
+.float-2{top:-20px;right:-20px;animation:float2 5s ease-in-out infinite;}
+@keyframes float1{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes float2{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
+.float-num{font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;color:var(--purple);}
+.float-num2{font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;color:var(--blue);}
+.float-label{font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+.numbers{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:relative;z-index:1;}
+.num-card{padding:2.5rem 2rem;text-align:center;border-right:1px solid var(--border);}
+.num-card:last-child{border-right:none;}
+.num-val{font-family:'Syne',sans-serif;font-weight:800;font-size:2.4rem;background:linear-gradient(135deg,var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:0.5rem;}
+.num-label{font-size:0.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+section{padding:6rem 5%;position:relative;z-index:1;}
+.tag{font-size:0.72rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--purple-light);margin-bottom:0.75rem;font-weight:500;}
+h2{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.8rem,3.5vw,2.8rem);color:#fff;line-height:1.15;margin-bottom:1.25rem;letter-spacing:-1px;}
+h2 span{background:linear-gradient(135deg,var(--purple),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.section-p{color:var(--muted);max-width:540px;font-size:1.05rem;line-height:1.8;margin-bottom:3rem;}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.25rem;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.75rem;transition:border-color 0.2s,transform 0.2s;position:relative;}
+.card:hover{border-color:rgba(123,92,250,0.25);transform:translateY(-4px);}
+.card-icon{width:44px;height:44px;background:rgba(123,92,250,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;font-size:1.3rem;}
+.card h3{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;color:#fff;margin-bottom:0.65rem;}
+.card p{font-size:0.875rem;color:var(--muted);line-height:1.7;}
+.card-active{border-color:rgba(123,92,250,0.2);}
+.badge-ativo{position:absolute;top:1rem;right:1rem;background:rgba(52,211,153,0.1);color:#6EE7B7;font-size:0.62rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:100px;letter-spacing:1.5px;text-transform:uppercase;}
+.nosep-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.feature-list{list-style:none;margin-top:2rem;}
+.feature-list li{display:flex;align-items:flex-start;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border);}
+.feature-list li:last-child{border-bottom:none;}
+.f-dot{width:2px;height:32px;background:linear-gradient(var(--purple),var(--blue));border-radius:2px;flex-shrink:0;margin-top:4px;}
+.f-title{font-weight:500;color:#fff;font-size:0.95rem;margin-bottom:0.25rem;}
+.f-desc{font-size:0.85rem;color:var(--muted);line-height:1.6;}
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem;}
+.step{padding:1.5rem;text-align:center;}
+.step-num{font-family:'Syne',sans-serif;font-weight:800;font-size:0.75rem;letter-spacing:2px;color:var(--purple-light);background:rgba(123,92,250,0.1);border:1px solid rgba(123,92,250,0.2);width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;}
+.step h3{font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;color:#fff;margin-bottom:0.5rem;}
+.step p{font-size:0.82rem;color:var(--muted);line-height:1.65;}
+.contact-inner{max-width:620px;margin:0 auto;text-align:center;}
+.contact-box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2.5rem;margin-top:2.5rem;text-align:left;position:relative;overflow:hidden;}
+.contact-box::before{content:'';position:absolute;top:-80px;right:-80px;width:200px;height:200px;background:radial-gradient(circle,rgba(123,92,250,0.15),transparent 70%);pointer-events:none;}
+.form-label{display:block;font-size:0.75rem;font-weight:500;letter-spacing:1px;color:var(--muted);text-transform:uppercase;margin-bottom:0.4rem;}
+.form-row{margin-bottom:1rem;}
+.form-input{width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:8px;padding:0.75rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.95rem;outline:none;transition:border-color 0.2s;}
+.form-input:focus{border-color:rgba(123,92,250,0.4);background:rgba(123,92,250,0.04);}
+.form-input::placeholder{color:var(--subtle);}
+select.form-input option{background:#10101E;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.form-submit{width:100%;background:linear-gradient(135deg,var(--purple),#5A3FD4);color:#fff;border:none;padding:1rem;border-radius:10px;font-size:1rem;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:0.5rem;transition:opacity 0.2s;}
+.form-submit:hover{opacity:0.9;}
+.success-msg{display:none;background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);border-radius:10px;padding:1.25rem;color:#6EE7B7;font-size:0.9rem;margin-top:1rem;text-align:center;}
+.alt-bg{background:rgba(255,255,255,0.015);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+footer{border-top:1px solid var(--border);padding:2.5rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;position:relative;z-index:1;}
+.footer-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:#fff;}
+.footer-logo span{color:var(--purple);}
+footer p{font-size:0.8rem;color:var(--muted);}
+footer a{color:var(--muted);text-decoration:none;font-size:0.8rem;transition:color 0.2s;}
+footer a:hover{color:var(--purple-light);}
+@media(max-width:900px){
+  .hero-inner,.nosep-grid{grid-template-columns:1fr;}
+  .hero-visual{display:none;}
+  .steps-grid{grid-template-columns:repeat(2,1fr);}
+  .numbers{grid-template-columns:repeat(2,1fr);}
+  nav ul{display:none;}
+  .form-grid{grid-template-columns:1fr;}
+}
 </style>
 </head>
 <body>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
 
-<!-- NAV -->
 <nav>
   <div class="logo">ARGO <span>SYSTEMS</span></div>
   <ul>
     <li><a href="#nosepsis">NoSepsis</a></li>
-    <li><a href="#como-funciona">Como funciona</a></li>
-    <li><a href="#contato" class="nav-cta">Falar com especialista</a></li>
+    <li><a href="#plataforma">Plataforma</a></li>
+    <li><a href="#quem-somos">Sobre</a></li>
+    <li><a href="#contato" class="nav-cta">Solicitar piloto</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
-<section class="hero" style="flex-direction:row;gap:3rem;">
-  <div class="hero-content" style="flex:1;min-width:0;">
-    <div class="hero-tag">Inteligência Clínica — UTI</div>
-    <h1>Sepse identificada<br>antes que seja<br><span>tarde demais.</span></h1>
-    <p>O NoSepsis monitora pacientes críticos em tempo real, prioriza riscos e alerta equipes clínicas com antecedência suficiente para salvar vidas.</p>
-    <div class="hero-actions">
-      <a href="#contato" class="btn-primary">Solicitar piloto</a>
-      <a href="#nosepsis" class="btn-secondary">Ver como funciona</a>
-    </div>
-  </div>
-  <div class="hero-mockup-col" style="flex:1;min-width:0;">
-    <div class="mockup">
-      <div class="mockup-bar">
-        <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
-        <span style="font-size:0.7rem;color:var(--text-muted);margin-left:0.5rem;">NoSepsis · Dashboard</span>
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge"><div class="hero-dot"></div>Inteligência Clínica — UTI</div>
+      <h1>Sepse identificada<br>antes que seja<br><span class="grad">tarde demais.</span></h1>
+      <p class="hero-p">O NoSepsis monitora pacientes críticos em tempo real, prioriza riscos e alerta equipes clínicas com antecedência suficiente para salvar vidas.</p>
+      <div class="hero-btns">
+        <a href="#contato" class="btn-main">Solicitar piloto →</a>
+        <a href="#nosepsis" class="btn-sec">Ver como funciona</a>
       </div>
-      <div class="mockup-content">
-        <div class="mock-title">Fila de Risco — UTI · Tempo real</div>
-        <div class="mock-patient alto"><div><div class="mock-patient-name">Paciente 04 — J.M.S.</div><div class="mock-patient-leito">Leito 04 · Score 0.91 · 6h</div></div><span class="mock-badge badge-alto">ALTO RISCO</span></div>
-        <div class="mock-patient alto"><div><div class="mock-patient-name">Paciente 11 — M.A.R.</div><div class="mock-patient-leito">Leito 11 · Score 0.84 · 2h</div></div><span class="mock-badge badge-alto">ALTO RISCO</span></div>
-        <div class="mock-patient medio"><div><div class="mock-patient-name">Paciente 07 — C.F.L.</div><div class="mock-patient-leito">Leito 07 · Score 0.63 · 14h</div></div><span class="mock-badge badge-medio">RISCO MÉDIO</span></div>
-        <div class="mock-patient baixo"><div><div class="mock-patient-name">Paciente 02 — R.T.M.</div><div class="mock-patient-leito">Leito 02 · Score 0.21 · 48h</div></div><span class="mock-badge badge-baixo">CONTROLE</span></div>
+    </div>
+    <div class="hero-visual">
+      <div style="position:relative;padding:2rem 1.5rem 2.5rem;">
+        <div class="float-card float-1"><div class="float-num">91%</div><div class="float-label">precisão preditiva</div></div>
+        <div class="float-card float-2"><div class="float-num2">6h</div><div class="float-label">antecedência média</div></div>
+        <div class="dashboard-card">
+          <div class="dash-bar"><div class="dash-dot dash-dot-r"></div><div class="dash-dot dash-dot-y"></div><div class="dash-dot dash-dot-g"></div><span class="dash-title">nosepsis · dashboard</span></div>
+          <div class="dash-content">
+            <div class="dash-label">Fila de Risco — UTI · Tempo real</div>
+            <div class="patient-row alto"><div><div class="p-name">Paciente 04 — J.M.S.</div><div class="p-info">Leito 04 · Score 0.91 · 6h</div></div><span class="p-badge b-alto">ALTO RISCO</span></div>
+            <div class="patient-row alto"><div><div class="p-name">Paciente 11 — M.A.R.</div><div class="p-info">Leito 11 · Score 0.84 · 2h</div></div><span class="p-badge b-alto">ALTO RISCO</span></div>
+            <div class="patient-row medio"><div><div class="p-name">Paciente 07 — C.F.L.</div><div class="p-info">Leito 07 · Score 0.63 · 14h</div></div><span class="p-badge b-medio">RISCO MÉDIO</span></div>
+            <div class="patient-row baixo"><div><div class="p-name">Paciente 02 — R.T.M.</div><div class="p-info">Leito 02 · Score 0.21 · 48h</div></div><span class="p-badge b-baixo">CONTROLE</span></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- NUMBERS -->
 <div class="numbers">
-  <div class="number-card">
-    <div class="num">30%</div>
-    <div class="label">mortalidade da sepse grave</div>
-  </div>
-  <div class="number-card">
-    <div class="num">6h</div>
-    <div class="label">janela crítica de intervenção</div>
-  </div>
-  <div class="number-card">
-    <div class="num">72%</div>
-    <div class="label">dos casos têm sinais precoces ignorados</div>
-  </div>
-  <div class="number-card">
-    <div class="num">R$18k</div>
-    <div class="label">custo médio por internação grave</div>
-  </div>
+  <div class="num-card"><div class="num-val">30%</div><div class="num-label">mortalidade da sepse grave</div></div>
+  <div class="num-card"><div class="num-val">6h</div><div class="num-label">janela crítica de intervenção</div></div>
+  <div class="num-card"><div class="num-val">72%</div><div class="num-label">sinais precoces ignorados</div></div>
+  <div class="num-card"><div class="num-val">R$18k</div><div class="num-label">custo médio por internação grave</div></div>
 </div>
 
-
-<!-- QUEM SOMOS -->
-<section id="quem-somos" style="background: var(--navy);">
-  <div class="section-tag">Quem somos</div>
-  <div class="section-title">Tecnologia nascida<br>dentro do <span>hospital</span></div>
-  <div class="section-desc">A Argo Systems foi fundada por um profissional de saúde com mais de 15 anos de experiência clínica e gestão hospitalar — não por engenheiros distantes da realidade da UTI.</div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;margin-top:2.5rem;">
-    <div class="problem-card">
-      <div class="problem-icon">🏥</div>
-      <h3>Origem clínica</h3>
-      <p>O NoSepsis foi desenvolvido a partir de observação direta de falhas assistenciais em UTIs brasileiras — não de hipóteses acadêmicas.</p>
-    </div>
-    <div class="problem-card">
-      <div class="problem-icon">🎓</div>
-      <h3>Base científica</h3>
-      <p>Modelos validados com dados reais de pacientes críticos. Publicações em saúde pública e metodologia de auditoria hospitalar aplicada.</p>
-    </div>
-    <div class="problem-card">
-      <div class="problem-icon">⚖️</div>
-      <h3>Conformidade e segurança</h3>
-      <p>Plataforma desenvolvida com conformidade à LGPD, CFM e padrões de segurança da informação em saúde. Contrato com cláusulas claras de resultado.</p>
-    </div>
-    <div class="problem-card">
-      <div class="problem-icon">📍</div>
-      <h3>Presença regional</h3>
-      <p>Sediados em Governador Valadares, MG. Atendimento presencial em hospitais do interior — sem suporte remoto genérico.</p>
-    </div>
+<section class="alt-bg" id="quem-somos">
+  <div class="tag">Quem somos</div>
+  <h2>Tecnologia nascida<br>dentro do <span>hospital</span></h2>
+  <p class="section-p">A Argo Systems foi fundada por um profissional de saúde com mais de 15 anos de experiência clínica e gestão hospitalar — não por engenheiros distantes da realidade da UTI.</p>
+  <div class="cards-grid">
+    <div class="card"><div class="card-icon">🏥</div><h3>Origem clínica</h3><p>O NoSepsis foi desenvolvido a partir de observação direta de falhas assistenciais em UTIs brasileiras — não de hipóteses acadêmicas.</p></div>
+    <div class="card"><div class="card-icon">🎓</div><h3>Base científica</h3><p>Modelos validados com dados reais de pacientes críticos. Publicações em saúde pública e metodologia de auditoria hospitalar aplicada.</p></div>
+    <div class="card"><div class="card-icon">⚖️</div><h3>Conformidade e segurança</h3><p>Plataforma desenvolvida com conformidade à LGPD, CFM e padrões de segurança da informação em saúde.</p></div>
+    <div class="card"><div class="card-icon">📍</div><h3>Presença regional</h3><p>Sediados em Governador Valadares, MG. Atendimento presencial em hospitais do interior — sem suporte remoto genérico.</p></div>
   </div>
 </section>
 
-<!-- PROBLEMA -->
-<section class="problem" id="problema">
-  <div class="section-tag">O problema</div>
-  <div class="section-title">O hospital perde<br><span>tempo, vidas e receita</span></div>
-  <div class="section-desc">Equipes sobrecarregadas não conseguem monitorar todos os pacientes com a atenção que cada caso exige.</div>
-  <div class="problem-grid">
-    <div class="problem-card">
-      <div class="problem-icon">⚠️</div>
-      <h3>Monitoramento manual e reativo</h3>
-      <p>Enfermeiros e médicos identificam deterioração tarde demais, quando o quadro já é crítico e o custo de reversão muito alto.</p>
-    </div>
-    <div class="problem-card">
-      <div class="problem-icon">📋</div>
-      <h3>Dados espalhados sem priorização</h3>
-      <p>Sinais vitais, exames e evoluções existem no sistema, mas ninguém os cruza em tempo real para gerar alertas acionáveis.</p>
-    </div>
-    <div class="problem-card">
-      <div class="problem-icon">💰</div>
-      <h3>Readmissões evitáveis</h3>
-      <p>Altas prematuras e diagnósticos tardios geram reinternações que aumentam o custo operacional e impactam indicadores de qualidade.</p>
-    </div>
-  </div>
-</section>
-
-<!-- NOSEPSIS -->
 <section id="nosepsis">
-  <div class="nosepsis-grid">
+  <div class="nosep-grid">
     <div>
-      <div class="section-tag">A solução</div>
-      <div class="section-title">NoSepsis —<br><span>alerta inteligente</span><br>para UTI</div>
-      <div class="section-desc">Plataforma SaaS que usa modelos preditivos para identificar pacientes em risco de sepse com horas de antecedência.</div>
+      <div class="tag">A solução</div>
+      <h2>NoSepsis —<br><span>alerta inteligente</span><br>para UTI</h2>
+      <p class="section-p" style="margin-bottom:0;">Plataforma SaaS que usa modelos preditivos para identificar pacientes em risco de sepse com horas de antecedência.</p>
       <ul class="feature-list">
-        <li>
-          <div class="feature-dot"></div>
-          <div>
-            <strong>Fila de risco priorizada (RHPM)</strong>
-            <span>Todos os pacientes ranqueados por gravidade em tempo real. A equipe sabe exatamente quem atender primeiro.</span>
-          </div>
-        </li>
-        <li>
-          <div class="feature-dot"></div>
-          <div>
-            <strong>Alertas clínicos acionáveis</strong>
-            <span>Não é só um número de risco — o sistema sugere a ação: ATB, coleta de hemocultura, avaliação médica urgente.</span>
-          </div>
-        </li>
-        <li>
-          <div class="feature-dot"></div>
-          <div>
-            <strong>Relatório gerencial para diretoria</strong>
-            <span>Dashboard executivo com indicadores de sepse, compliance e impacto financeiro evitado.</span>
-          </div>
-        </li>
-        <li>
-          <div class="feature-dot"></div>
-          <div>
-            <strong>Implantação em 30 dias</strong>
-            <span>Piloto em UTI com resultado mensurável no primeiro mês. Sem grandes integrações ou mudanças de fluxo.</span>
-          </div>
-        </li>
+        <li><div class="f-dot"></div><div><div class="f-title">Fila de risco priorizada (RHPM)</div><div class="f-desc">Todos os pacientes ranqueados por gravidade em tempo real. A equipe sabe exatamente quem atender primeiro.</div></div></li>
+        <li><div class="f-dot"></div><div><div class="f-title">Alertas clínicos acionáveis</div><div class="f-desc">Não é só um número de risco — o sistema sugere a ação: ATB, coleta de hemocultura, avaliação médica urgente.</div></div></li>
+        <li><div class="f-dot"></div><div><div class="f-title">Relatório gerencial para diretoria</div><div class="f-desc">Dashboard executivo com indicadores de sepse, compliance e impacto financeiro evitado.</div></div></li>
+        <li><div class="f-dot"></div><div><div class="f-title">Implantação em 30 dias</div><div class="f-desc">Piloto em UTI com resultado mensurável no primeiro mês. Sem grandes integrações ou mudanças de fluxo.</div></div></li>
       </ul>
     </div>
-    <div>
-      <div class="mockup">
-        <div class="mockup-bar">
-          <div class="dot dot-red"></div>
-          <div class="dot dot-yellow"></div>
-          <div class="dot dot-green"></div>
-        </div>
-        <div class="mockup-content">
-          <div class="mock-title">Fila de Risco — UTI · 20 pacientes</div>
-          <div class="mock-patient alto">
-            <div>
-              <div class="mock-patient-name">Paciente 04 — J.M.S.</div>
-              <div class="mock-patient-leito">Leito 04 · Score 0.91 · 6h monitorado</div>
-            </div>
-            <span class="mock-badge badge-alto">ALTO RISCO</span>
-          </div>
-          <div class="mock-patient alto">
-            <div>
-              <div class="mock-patient-name">Paciente 11 — M.A.R.</div>
-              <div class="mock-patient-leito">Leito 11 · Score 0.84 · 2h monitorado</div>
-            </div>
-            <span class="mock-badge badge-alto">ALTO RISCO</span>
-          </div>
-          <div class="mock-patient medio">
-            <div>
-              <div class="mock-patient-name">Paciente 07 — C.F.L.</div>
-              <div class="mock-patient-leito">Leito 07 · Score 0.63 · 14h monitorado</div>
-            </div>
-            <span class="mock-badge badge-medio">RISCO MÉDIO</span>
-          </div>
-          <div class="mock-patient medio">
-            <div>
-              <div class="mock-patient-name">Paciente 15 — A.P.B.</div>
-              <div class="mock-patient-leito">Leito 15 · Score 0.58 · 1h monitorado</div>
-            </div>
-            <span class="mock-badge badge-medio">RISCO MÉDIO</span>
-          </div>
-          <div class="mock-patient baixo">
-            <div>
-              <div class="mock-patient-name">Paciente 02 — R.T.M.</div>
-              <div class="mock-patient-leito">Leito 02 · Score 0.21 · 48h monitorado</div>
-            </div>
-            <span class="mock-badge badge-baixo">CONTROLE</span>
-          </div>
-        </div>
+    <div class="dashboard-card">
+      <div class="dash-bar"><div class="dash-dot dash-dot-r"></div><div class="dash-dot dash-dot-y"></div><div class="dash-dot dash-dot-g"></div><span class="dash-title">nosepsis · dashboard</span></div>
+      <div class="dash-content">
+        <div class="dash-label">Fila de Risco — UTI · 20 pacientes</div>
+        <div class="patient-row alto"><div><div class="p-name">Paciente 04 — J.M.S.</div><div class="p-info">Leito 04 · Score 0.91 · 6h monitorado</div></div><span class="p-badge b-alto">ALTO RISCO</span></div>
+        <div class="patient-row alto"><div><div class="p-name">Paciente 11 — M.A.R.</div><div class="p-info">Leito 11 · Score 0.84 · 2h monitorado</div></div><span class="p-badge b-alto">ALTO RISCO</span></div>
+        <div class="patient-row medio"><div><div class="p-name">Paciente 07 — C.F.L.</div><div class="p-info">Leito 07 · Score 0.63 · 14h monitorado</div></div><span class="p-badge b-medio">RISCO MÉDIO</span></div>
+        <div class="patient-row medio"><div><div class="p-name">Paciente 15 — A.P.B.</div><div class="p-info">Leito 15 · Score 0.58 · 1h monitorado</div></div><span class="p-badge b-medio">RISCO MÉDIO</span></div>
+        <div class="patient-row baixo"><div><div class="p-name">Paciente 02 — R.T.M.</div><div class="p-info">Leito 02 · Score 0.21 · 48h monitorado</div></div><span class="p-badge b-baixo">CONTROLE</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- COMO FUNCIONA -->
-<section class="steps" id="como-funciona">
-  <div class="section-tag">Processo</div>
-  <div class="section-title">Da contratação ao <span>resultado</span></div>
-  <div class="section-desc">Metodologia estruturada para entrega de valor mensurável em 30 dias.</div>
+<section id="plataforma" class="alt-bg">
+  <div class="tag">Plataforma AURIA</div>
+  <h2>Um ecossistema completo<br>de <span>inteligência clínica</span></h2>
+  <p class="section-p">O NoSepsis é o primeiro módulo da AURIA — plataforma modular de monitoramento preditivo para hospitais.</p>
+  <div class="cards-grid">
+    <div class="card card-active"><span class="badge-ativo">ATIVO</span><div class="card-icon" style="background:rgba(123,92,250,0.15);">🔴</div><h3 style="color:var(--purple-light);">NoSepsis</h3><p>Detecção precoce de sepse em UTI. Fila de risco RHPM, alertas clínicos acionáveis e relatório gerencial em tempo real.</p></div>
+    <div class="card card-active"><span class="badge-ativo">ATIVO</span><div class="card-icon">🫁</div><h3 style="color:var(--purple-light);">NoPAV</h3><p>Prevenção de Pneumonia Associada à Ventilação mecânica. Monitoramento de bundles e alertas de compliance.</p></div>
+    <div class="card card-active"><span class="badge-ativo">ATIVO</span><div class="card-icon">🧠</div><h3 style="color:var(--purple-light);">NoDelirium</h3><p>Rastreamento contínuo de delirium em pacientes críticos. Escalas automatizadas e alertas para avaliação médica.</p></div>
+    <div class="card card-active"><span class="badge-ativo">ATIVO</span><div class="card-icon">🩸</div><h3 style="color:var(--purple-light);">NoReação</h3><p>Monitoramento de reações transfusionais em tempo real. Identifica sinais adversos durante a transfusão.</p></div>
+    <div class="card card-active"><span class="badge-ativo">ATIVO</span><div class="card-icon">🛏️</div><h3 style="color:var(--purple-light);">Gestão de Leito</h3><p>Painel de ocupação, giro e disponibilidade de leitos em tempo real. Reduz tempo médio de espera.</p></div>
+    <div class="card card-active"><span class="badge-ativo">ATIVO</span><div class="card-icon">👩‍⚕️</div><h3 style="color:var(--purple-light);">Escala de Enfermagem</h3><p>Dimensionamento inteligente de equipe por turno e complexidade dos pacientes. Conformidade COFEN.</p></div>
+    <div class="card card-active"><span class="badge-ativo">ATIVO</span><div class="card-icon">📊</div><h3 style="color:var(--purple-light);">NoMaster</h3><p>Painel executivo integrado de todos os módulos AURIA. Indicadores de qualidade e segurança consolidados.</p></div>
+  </div>
+</section>
+
+<section id="como-funciona">
+  <div class="tag">Processo</div>
+  <h2>Da contratação ao <span>resultado</span></h2>
   <div class="steps-grid">
-    <div class="step-card">
-      <span class="step-num">01</span>
-      <h3>Reunião de diagnóstico</h3>
-      <p>Mapeamos o fluxo da UTI, volume de pacientes e estrutura de dados disponível. Sem compromisso.</p>
-    </div>
-    <div class="step-card">
-      <span class="step-num">02</span>
-      <h3>Proposta personalizada</h3>
-      <p>Projeto piloto com escopo, investimento e indicadores de sucesso definidos antes de começar.</p>
-    </div>
-    <div class="step-card">
-      <span class="step-num">03</span>
-      <h3>Implantação em 30 dias</h3>
-      <p>Sistema operacional na UTI com treinamento da equipe, suporte contínuo e painel ao vivo.</p>
-    </div>
-    <div class="step-card">
-      <span class="step-num">04</span>
-      <h3>Relatório de impacto</h3>
-      <p>Ao final do piloto, entregamos análise completa de casos detectados, alertas e custo evitado.</p>
+    <div class="step"><div class="step-num">01</div><h3>Reunião de diagnóstico</h3><p>Mapeamos o fluxo da UTI, volume de pacientes e estrutura de dados disponível. Sem compromisso.</p></div>
+    <div class="step"><div class="step-num">02</div><h3>Proposta personalizada</h3><p>Projeto piloto com escopo, investimento e indicadores de sucesso definidos antes de começar.</p></div>
+    <div class="step"><div class="step-num">03</div><h3>Implantação em 30 dias</h3><p>Sistema operacional na UTI com treinamento da equipe, suporte contínuo e painel ao vivo.</p></div>
+    <div class="step"><div class="step-num">04</div><h3>Relatório de impacto</h3><p>Análise completa de casos detectados, alertas disparados e custo evitado ao final do piloto.</p></div>
+  </div>
+</section>
+
+<section id="contato" class="alt-bg">
+  <div class="contact-inner">
+    <div class="tag" style="text-align:center;">Contato</div>
+    <h2 style="text-align:center;">Pronto para um <span>piloto?</span></h2>
+    <div class="contact-box">
+      <div class="form-grid">
+        <div class="form-row"><label class="form-label">Nome completo</label><input class="form-input" type="text" id="nome" placeholder="Dr. João Silva"></div>
+        <div class="form-row"><label class="form-label">Hospital / Instituição</label><input class="form-input" type="text" id="hospital" placeholder="Hospital São Lucas"></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-row"><label class="form-label">Cargo</label><select class="form-input" id="cargo"><option value="">Selecione...</option><option>Diretor Clínico</option><option>Diretor Administrativo</option><option>Médico Intensivista</option><option>Gerente de Qualidade</option><option>Outro</option></select></div>
+        <div class="form-row"><label class="form-label">WhatsApp</label><input class="form-input" type="tel" id="whatsapp" placeholder="(33) 99999-0000"></div>
+      </div>
+      <div class="form-row"><label class="form-label">E-mail institucional</label><input class="form-input" type="email" id="email" placeholder="joao@hospital.com.br"></div>
+      <div class="form-row"><label class="form-label">Mensagem (opcional)</label><textarea class="form-input" id="mensagem" style="resize:vertical;min-height:90px;" placeholder="Tamanho da UTI, dúvidas, disponibilidade..."></textarea></div>
+      <button class="form-submit" onclick="enviar()">Solicitar contato →</button>
+      <div class="success-msg" id="success">✓ Mensagem recebida! Nossa equipe entrará em contato em até 24 horas.</div>
     </div>
   </div>
 </section>
 
-<!-- PLATAFORMA AURIA -->
-<section id="plataforma" style="background: var(--navy-mid);">
-  <div class="section-tag">Plataforma AURIA</div>
-  <div class="section-title">Um ecossistema completo<br>de <span>inteligência clínica</span></div>
-  <div class="section-desc">O NoSepsis é o primeiro módulo da AURIA — plataforma modular de monitoramento preditivo para hospitais. Cada módulo resolve um problema clínico crítico, de forma independente ou integrada.</div>
-
-  <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:1.25rem; margin-top:2.5rem;">
-
-    <div class="problem-card" style="border-color: rgba(0,212,255,0.3); position:relative;">
-      <div style="position:absolute;top:1rem;right:1rem;background:rgba(29,158,117,0.15);color:#64FFDA;font-size:0.65rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:100px;letter-spacing:1px;">ATIVO</div>
-      <div class="problem-icon" style="background:rgba(0,212,255,0.1);">🔴</div>
-      <h3 style="color:var(--cyan);">NoSepsis</h3>
-      <p>Detecção precoce de sepse em UTI. Fila de risco RHPM, alertas clínicos acionáveis e relatório gerencial em tempo real.</p>
-    </div>
-
-    <div class="problem-card" style="border-color: rgba(0,212,255,0.3); position:relative;">
-      <div style="position:absolute;top:1rem;right:1rem;background:rgba(29,158,117,0.15);color:#64FFDA;font-size:0.65rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:100px;letter-spacing:1px;">ATIVO</div>
-      <div class="problem-icon" style="background:rgba(0,212,255,0.1);">🫁</div>
-      <h3 style="color:var(--cyan);">NoPAV</h3>
-      <p>Prevenção de Pneumonia Associada à Ventilação mecânica. Monitoramento de bundles e alertas de compliance para equipe de enfermagem.</p>
-    </div>
-
-    <div class="problem-card" style="border-color: rgba(0,212,255,0.3); position:relative;">
-      <div style="position:absolute;top:1rem;right:1rem;background:rgba(29,158,117,0.15);color:#64FFDA;font-size:0.65rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:100px;letter-spacing:1px;">ATIVO</div>
-      <div class="problem-icon" style="background:rgba(0,212,255,0.1);">🧠</div>
-      <h3 style="color:var(--cyan);">NoDelirium</h3>
-      <p>Rastreamento contínuo de delirium em pacientes críticos. Escalas automatizadas, histórico e alertas para avaliação médica.</p>
-    </div>
-
-    <div class="problem-card" style="border-color: rgba(0,212,255,0.3); position:relative;">
-      <div style="position:absolute;top:1rem;right:1rem;background:rgba(29,158,117,0.15);color:#64FFDA;font-size:0.65rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:100px;letter-spacing:1px;">ATIVO</div>
-      <div class="problem-icon" style="background:rgba(0,212,255,0.1);">🩸</div>
-      <h3 style="color:var(--cyan);">NoReação</h3>
-      <p>Monitoramento de reações transfusionais em tempo real. Identifica sinais de reação adversa durante a transfusão e aciona a equipe imediatamente.</p>
-    </div>
-
-    <div class="problem-card" style="border-color: rgba(0,212,255,0.3); position:relative;">
-      <div style="position:absolute;top:1rem;right:1rem;background:rgba(29,158,117,0.15);color:#64FFDA;font-size:0.65rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:100px;letter-spacing:1px;">ATIVO</div>
-      <div class="problem-icon" style="background:rgba(0,212,255,0.1);">🛏️</div>
-      <h3 style="color:var(--cyan);">Gestão de Leito</h3>
-      <p>Painel de ocupação, giro e disponibilidade de leitos em tempo real. Reduz tempo médio de espera e otimiza a capacidade hospitalar.</p>
-    </div>
-
-    <div class="problem-card" style="border-color: rgba(0,212,255,0.3); position:relative;">
-      <div style="position:absolute;top:1rem;right:1rem;background:rgba(29,158,117,0.15);color:#64FFDA;font-size:0.65rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:100px;letter-spacing:1px;">ATIVO</div>
-      <div class="problem-icon" style="background:rgba(0,212,255,0.1);">👩‍⚕️</div>
-      <h3 style="color:var(--cyan);">Escala de Enfermagem</h3>
-      <p>Dimensionamento inteligente de equipe por turno, carga de trabalho e complexidade dos pacientes. Conformidade com resoluções do COFEN.</p>
-    </div>
-
-    <div class="problem-card" style="border-color: rgba(0,212,255,0.3); position:relative;">
-      <div style="position:absolute;top:1rem;right:1rem;background:rgba(29,158,117,0.15);color:#64FFDA;font-size:0.65rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:100px;letter-spacing:1px;">ATIVO</div>
-      <div class="problem-icon" style="background:rgba(0,212,255,0.1);">📊</div>
-      <h3 style="color:var(--cyan);">NoMaster</h3>
-      <p>Painel executivo integrado de todos os módulos AURIA. Indicadores de qualidade, segurança do paciente e desempenho assistencial consolidados.</p>
-    </div>
-
-  </div>
-</section>
-
-<section class="contact" id="contato">
-  <div class="section-tag" style="text-align:center;">Contato</div>
-  <div class="section-title" style="text-align:center;">Pronto para um <span>piloto?</span></div>
-  <div style="height:2rem;"></div>
-  <div class="contact-box">
-    <p>Fale com nossa equipe. Respondemos em até 24 horas.</p>
-    <div class="form-group">
-      <label>Nome completo</label>
-      <input type="text" id="nome" placeholder="Dr. João Silva">
-    </div>
-    <div class="form-group">
-      <label>Hospital / Instituição</label>
-      <input type="text" id="hospital" placeholder="Hospital São Lucas">
-    </div>
-    <div class="form-group">
-      <label>Cargo</label>
-      <select id="cargo">
-        <option value="">Selecione...</option>
-        <option>Diretor Clínico</option>
-        <option>Diretor Administrativo</option>
-        <option>Médico Intensivista</option>
-        <option>Gerente de Qualidade</option>
-        <option>Outro</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>WhatsApp</label>
-      <input type="tel" id="whatsapp" placeholder="(33) 99999-0000">
-    </div>
-    <div class="form-group">
-      <label>E-mail institucional</label>
-      <input type="email" id="email" placeholder="joao@hospital.com.br">
-    </div>
-    <div class="form-group">
-      <label>Mensagem (opcional)</label>
-      <textarea id="mensagem" placeholder="Tamanho da UTI, dúvidas, disponibilidade..."></textarea>
-    </div>
-    <button class="form-submit" onclick="enviarFormulario()">Solicitar contato →</button>
-    <div class="success-msg" id="success">
-      ✓ Mensagem recebida! Nossa equipe entrará em contato em até 24 horas.
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
 <footer>
-  <div class="logo">ARGO <span>SYSTEMS</span></div>
+  <div class="footer-logo">ARGO <span>SYSTEMS</span></div>
   <p>CNPJ 22.896.339/0001-50 · Governador Valadares, MG</p>
-  <div style="display:flex;gap:1.5rem;">
+  <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
     <a href="mailto:diogojustino@argosystems.com.br">diogojustino@argosystems.com.br</a>
     <a href="mailto:contato@argosystems.com.br">contato@argosystems.com.br</a>
   </div>
 </footer>
 
 <script>
-function enviarFormulario() {
-  const nome = document.getElementById('nome').value.trim();
-  const hospital = document.getElementById('hospital').value.trim();
-  const whatsapp = document.getElementById('whatsapp').value.trim();
-  const email = document.getElementById('email').value.trim();
-
-  if (!nome || !hospital || !whatsapp || !email) {
-    alert('Por favor, preencha nome, hospital, WhatsApp e e-mail.');
-    return;
-  }
-
-  const msg = encodeURIComponent(
-    `*Novo contato via site Argo Systems*\n\n` +
-    `Nome: ${nome}\n` +
-    `Hospital: ${hospital}\n` +
-    `Cargo: ${document.getElementById('cargo').value}\n` +
-    `WhatsApp: ${whatsapp}\n` +
-    `E-mail: ${email}\n` +
-    `Mensagem: ${document.getElementById('mensagem').value || 'Sem mensagem'}`
-  );
-
-  window.open(`https://wa.me/5533991000048?text=${msg}`, '_blank');
-
-  const emailBody = encodeURIComponent(
-    `Novo contato via site Argo Systems\n\n` +
-    `Nome: ${nome}\nHospital: ${hospital}\nCargo: ${document.getElementById('cargo').value}\nWhatsApp: ${whatsapp}\nMensagem: ${document.getElementById('mensagem').value || 'Sem mensagem'}`
-  );
-  setTimeout(() => {
-    window.location.href = `mailto:diogojustino@argosystems.com.br?subject=Contato via site - ${hospital}&body=${emailBody}`;
-  }, 800);
-
-  document.getElementById('success').style.display = 'block';
+function enviar(){
+  const nome=document.getElementById('nome').value.trim();
+  const hospital=document.getElementById('hospital').value.trim();
+  const whatsapp=document.getElementById('whatsapp').value.trim();
+  const email=document.getElementById('email').value.trim();
+  if(!nome||!hospital||!whatsapp||!email){alert('Por favor, preencha nome, hospital, WhatsApp e e-mail.');return;}
+  const msg=encodeURIComponent('*Novo contato via site Argo Systems*\n\nNome: '+nome+'\nHospital: '+hospital+'\nCargo: '+document.getElementById('cargo').value+'\nWhatsApp: '+whatsapp+'\nE-mail: '+email+'\nMensagem: '+(document.getElementById('mensagem').value||'Sem mensagem'));
+  window.open('https://wa.me/5533991000048?text='+msg,'_blank');
+  setTimeout(function(){window.location.href='mailto:diogojustino@argosystems.com.br?subject=Contato via site - '+hospital;},800);
+  document.getElementById('success').style.display='block';
 }
 </script>
-
 </body>
 </html>
